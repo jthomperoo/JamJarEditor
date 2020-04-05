@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('./Roboto-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Roboto', Fallback, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.editor-button {
+    max-width: 200px;
+}

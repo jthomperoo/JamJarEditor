@@ -1,0 +1,104 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+body {
+    display: grid;
+    grid-template-areas: 
+        "preview preview preview selected"
+        "preview preview preview selected"
+        "preview preview preview selected"
+        "values assets components entities";
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 1fr;
+    overflow: hidden;
+}
+
+ul {
+    list-style: none;
+}
+
+.item-list {
+    margin-block-start: 0px;
+    padding-inline-start: 0px;
+}
+
+.selected-list {
+    padding-inline-start: 1em;
+}
+
+.ui-box-title {
+    font-size: 1em;
+    margin-block-end: 0;
+    margin-block-start: 0;
+}
+
+.open-scene-message {
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+}
+
+.ui-box {
+    background-color: darkgrey;
+    overflow-y: auto;
+    display: flex;
+    padding: 2px;
+    border-width: 3px;
+    border-style: dotted;
+    border-color: black;
+}
+
+.selected-component {
+    margin: 2px;
+    padding: 2px;
+    border-bottom: 3px solid black;
+}
+
+#selected-entity-name {
+    text-align: center;
+}
+
+#scene-canvas {
+    width: 100%;
+    height: 100%;
+    background-color: lightblue;
+}
+
+#preview {
+    display: grid;
+    grid-area: preview;
+}
+
+#selected {
+    grid-area: selected;
+    flex-direction: column;
+}
+
+#entities {
+    grid-area: entities;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+#components {
+    grid-area: components;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+#assets {
+    grid-area: assets;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+#values {
+    grid-area: values;
+    flex-direction: column;
+    overflow-x: hidden;
+}

@@ -4,23 +4,42 @@ import SceneEdit from "../scene_edit";
 import Scene from "../../../../shared/scene";
 import PreviewGame from "./canvas_game/preview_game";
 import MessageBus from "jamjar/lib/message/message_bus";
+import ComponentSpec from "../../../../shared/component_spec";
 
 class Preview extends SceneDisplay implements IDisplay {
     private scene?: Scene;
     private game?: PreviewGame;
-    constructor(element: HTMLElement, game?: PreviewGame, scene?: Scene, sceneEdit?: SceneEdit, doc?: HTMLDocument) {
+    constructor(element: HTMLElement, 
+        game?: PreviewGame, 
+        scene?: Scene, 
+        sceneEdit?: SceneEdit, 
+        doc?: HTMLDocument) {
         super(element, sceneEdit, doc);
         this.game = game;
     }
 
+    public SetSpecs(specs: ComponentSpec[]) {
+        if (this.game !== undefined) {
+            this.game.LoadSpecs(specs);
+        }
+    }
+
     public SetScene(scene: Scene): void {
         this.scene = scene;
+        if (this.game !== undefined) {
+            this.game.LoadScene(scene);
+        }
     }
 
     public Start(): void {
         while (this.element.firstChild !== null) {
             this.element.firstChild.remove();
         }
+        const newSceneMessage = this.doc.createElement("span");
+        newSceneMessage.id = "preview-open-scene-message";
+        newSceneMessage.className = "open-scene-message";
+        newSceneMessage.innerText = "Create a new Scene or open an existing one to start.";
+        this.element.appendChild(newSceneMessage);
     }
 
     public Close(): void {
@@ -33,18 +52,8 @@ class Preview extends SceneDisplay implements IDisplay {
     }
 
     public Update(): void {  
-        if (this.scene === undefined) {
-            while (this.element.firstChild !== null) {
-                this.element.firstChild.remove();
-            }
-            const newSceneMessage = this.doc.createElement("span");
-            newSceneMessage.className = "open-scene-message";
-            newSceneMessage.innerText = "Create a new Scene or open an existing one to start.";
-            this.element.appendChild(newSceneMessage);
-            return;
-        }
-        const firstElement = this.element.firstChild;
-        if (firstElement === null || (firstElement as HTMLElement).className === "open-scene-message") {
+        const newSceneMessage = document.getElementById("preview-open-scene-message");
+        if (newSceneMessage !== null) {
             while (this.element.firstChild !== null) {
                 this.element.firstChild.remove();
             }

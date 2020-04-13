@@ -20,6 +20,7 @@ import Texture from "jamjar/lib/rendering/texture";
 import Polygon from "jamjar/lib/standard/shape/polygon";
 import CanvasResizeSystem from "./canvas_resize/canvas_resize_system";
 import ResizableCamera from "./canvas_resize/resizable_camera";
+import JamJarEntityDisplaySystem from "./jamjar_entity/jamjar_entity_display_system";
 
 class PreviewScene extends Scene {
     private canvas: HTMLCanvasElement;
@@ -42,6 +43,7 @@ class PreviewScene extends Scene {
         new HTTPImageSystem(this.messageBus, this);
         new TransformDisplaySystem(this.messageBus, this);
         new CanvasResizeSystem(this.messageBus, this.canvas, this);
+        new JamJarEntityDisplaySystem(this.messageBus, this);
 
         this.messageBus.Publish(new Message<[string, string]>(ImageAsset.MESSAGE_REQUEST_LOAD, ["selected", "../../assets/selected_placeholder.png"]));
         this.messageBus.Publish(new Message<[string, string]>(ImageAsset.MESSAGE_REQUEST_LOAD, ["rotate_arrow", "../../assets/rotate.png"]));
@@ -51,36 +53,8 @@ class PreviewScene extends Scene {
         const camera = new Entity(this.messageBus);
         camera.Add(new Transform(new Vector(0,0)));
         camera.Add(new Camera(new Color(0.5,0.5,0.5), undefined, undefined, new Vector(this.canvas.width, this.canvas.height)));
-        camera.Add(new ResizableCamera(0.3));
+        camera.Add(new ResizableCamera(0.05)); 
         this.AddEntity(camera);
-
-        const selectedEntity = new Entity(this.messageBus);
-        selectedEntity.Add(new Transform(new Vector(0,0), new Vector(15, 15)));
-        selectedEntity.Add(new Sprite(new Material(
-            new Texture("selected", Polygon.RectangleByPoints(new Vector(0,0), new Vector(1,1)).GetFloat32Array())
-        ), 0));
-        this.AddEntity(selectedEntity);
-
-        const rotateArrow = new Entity(this.messageBus);
-        rotateArrow.Add(new Transform(new Vector(0, 20), new Vector(20, 20)));
-        rotateArrow.Add(new Sprite(new Material(
-            new Texture("rotate_arrow", Polygon.RectangleByPoints(new Vector(0,0), new Vector(1,1)).GetFloat32Array())
-        ), 0));
-        this.AddEntity(rotateArrow);
-
-        const xDirArrow = new Entity(this.messageBus);
-        xDirArrow.Add(new Transform(new Vector(12.5, 0), new Vector(10, 10), Math.PI/2));
-        xDirArrow.Add(new Sprite(new Material(
-            new Texture("x_dir_arrow", Polygon.RectangleByPoints(new Vector(0,0), new Vector(1,1)).GetFloat32Array())
-        ), 0));
-        this.AddEntity(xDirArrow);
-
-        const yDirArrow = new Entity(this.messageBus);
-        yDirArrow.Add(new Transform(new Vector(0, 12.5), new Vector(10, 10)));
-        yDirArrow.Add(new Sprite(new Material(
-            new Texture("y_dir_arrow", Polygon.RectangleByPoints(new Vector(0,0), new Vector(1,1)).GetFloat32Array())
-        ), 0));
-        this.AddEntity(yDirArrow);
     }
 }
 

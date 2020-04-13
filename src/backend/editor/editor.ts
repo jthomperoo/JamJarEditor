@@ -249,6 +249,7 @@ class Editor {
 
     private modifyScene(event: string | Symbol, sceneJSON: any): void {
         this.scene = Scene.Unmarshal(sceneJSON);
+        this.window.webContents.send(Messages.LOAD_SCENE, this.scene);
     }
 
     public Start(): void {

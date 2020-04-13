@@ -30,6 +30,7 @@ class SelectedBox extends SceneDisplay implements IDisplay {
     }
 
     public SetSpecs(specs: ComponentSpec[]): void {
+        this.specs = new Map();
         for (const spec of specs) {
             this.specs.set(spec.id, spec);
         }

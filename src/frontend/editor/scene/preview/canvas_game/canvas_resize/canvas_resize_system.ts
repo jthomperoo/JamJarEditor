@@ -5,7 +5,6 @@ import SystemEntity from "jamjar/lib/system/system_entity";
 import IEntity from "jamjar/lib/entity/ientity";
 import Component from "jamjar/lib/component/component";
 import ResizableCamera from "./resizable_camera";
-import Message from "jamjar/lib/message/message";
 import Vector from "jamjar/lib/geometry/vector";
 import Camera from "jamjar/lib/standard/camera/camera";
 

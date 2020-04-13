@@ -37,6 +37,7 @@ class SceneEdit implements IDisplay {
         for (const specJSON of specsJSON) {
             specs.push(ComponentSpec.Unmarshal(specJSON));
         }
+        this.preview.SetSpecs(specs);
         this.selectedBox.SetSpecs(specs);
         this.componentBox.SetSpecs(specs);
         this.Update();
@@ -72,6 +73,14 @@ class SceneEdit implements IDisplay {
     }
 
     public ModifyEntity(entity: Entity): void {
+        if (this.scene !== undefined) {
+            for (let i = 0; i < this.scene.entities.length; i++) {
+                const sceneEntity = this.scene.entities[i];
+                if (sceneEntity.id === entity.id) {
+                    this.scene.entities[i] = entity;
+                }
+            }
+        }
         this.ipcRendererProcess.send(Messages.MODIFY_SCENE, this.scene);
         this.Update();
     }

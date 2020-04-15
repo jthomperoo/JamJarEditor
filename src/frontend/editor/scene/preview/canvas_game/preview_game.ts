@@ -4,6 +4,7 @@ import PreviewScene from "./preview_scene";
 import Scene from "../../../../../shared/scene";
 import Message from "jamjar/lib/message/message";
 import ComponentSpec from "../../../../../shared/component_spec";
+import Preview from "../preview";
 
 class PreviewGame extends Game {
 
@@ -15,15 +16,21 @@ class PreviewGame extends Game {
 
     private canvas: HTMLCanvasElement;
     private mainScene?: PreviewScene;
-    constructor(messageBus: IMessageBus, canvas: HTMLCanvasElement, mainScene?: PreviewScene, frameRequestCallback?: (callback: FrameRequestCallback) => number) {
+    private preview: Preview;
+    constructor(messageBus: IMessageBus, 
+        canvas: HTMLCanvasElement, 
+        preview: Preview,
+        mainScene?: PreviewScene, 
+        frameRequestCallback?: (callback: FrameRequestCallback) => number) {
         super(messageBus, PreviewGame.NAME, frameRequestCallback);
         this.canvas = canvas;
         this.mainScene = mainScene;
+        this.preview = preview;
     }
 
     public Start(): void {
         super.Start();
-        this.mainScene = new PreviewScene(this.messageBus, this.canvas);
+        this.mainScene = new PreviewScene(this.messageBus, this.canvas, this.preview);
         this.mainScene.Start();
     }
 

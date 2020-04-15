@@ -72,20 +72,13 @@ class SceneEdit implements IDisplay {
         this.Update();
     }
 
-    public ModifyEntity(entity: Entity): void {
-        if (this.scene !== undefined) {
-            for (let i = 0; i < this.scene.entities.length; i++) {
-                const sceneEntity = this.scene.entities[i];
-                if (sceneEntity.id === entity.id) {
-                    this.scene.entities[i] = entity;
-                }
-            }
-        }
+    public ModifyEntity(): void {
         this.ipcRendererProcess.send(Messages.MODIFY_SCENE, this.scene);
         this.Update();
     }
 
     public SetSelected(entity: Entity): void {
+        this.preview.SelectEntity(entity);
         this.selectedBox.SetSelected(entity);
         this.Update();
     }

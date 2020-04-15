@@ -142,7 +142,8 @@ class SelectedBox extends SceneDisplay implements IDisplay {
         if (this.selected === undefined) {
             return;
         }
-        this.sceneEdit.ModifyEntity(this.selected);
+        console.log(this.selected);
+        this.sceneEdit.ModifyEntity();
     }
 
     private generateValueElements(component: Component, property: Property, value: Value, index?: number) {

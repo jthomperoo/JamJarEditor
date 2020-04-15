@@ -5,6 +5,7 @@ import Scene from "../../../../shared/scene";
 import PreviewGame from "./canvas_game/preview_game";
 import MessageBus from "jamjar/lib/message/message_bus";
 import ComponentSpec from "../../../../shared/component_spec";
+import Entity from "../../../../shared/entity";
 
 class Preview extends SceneDisplay implements IDisplay {
     private scene?: Scene;
@@ -18,6 +19,12 @@ class Preview extends SceneDisplay implements IDisplay {
         this.game = game;
     }
 
+    public SelectEntity(entity: Entity): void {
+        if (this.game !== undefined) {
+            this.game.SelectEntity(entity.id);
+        }
+    }
+
     public SetSpecs(specs: ComponentSpec[]) {
         if (this.game !== undefined) {
             this.game.LoadSpecs(specs);
@@ -28,6 +35,12 @@ class Preview extends SceneDisplay implements IDisplay {
         this.scene = scene;
         if (this.game !== undefined) {
             this.game.LoadScene(scene);
+        }
+    }
+
+    public ModifyEntity(): void {
+        if (this.sceneEdit !== undefined) {
+            this.sceneEdit.ModifyEntity()
         }
     }
 
@@ -65,7 +78,7 @@ class Preview extends SceneDisplay implements IDisplay {
 
             canvas.width = canvas.clientWidth;
             canvas.height = canvas.clientHeight;
-            this.game = new PreviewGame(new MessageBus(), canvas);
+            this.game = new PreviewGame(new MessageBus(), canvas, this);
             this.game.Start();
         }
     }

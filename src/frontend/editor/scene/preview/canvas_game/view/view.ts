@@ -1,12 +1,12 @@
 import Component from "jamjar/lib/component/component";
 
-class ResizableCamera extends Component {
-    public static readonly KEY = "resizable_camera";
+class View extends Component {
+    public static readonly KEY = "view";
     public zoomLevel: number;
     constructor(zoomLevel: number) {
-        super(ResizableCamera.KEY);
+        super(View.KEY);
         this.zoomLevel = zoomLevel;
     }
 }
 
-export default ResizableCamera;
+export default View;

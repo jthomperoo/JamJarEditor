@@ -14,20 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { MESSAGE_OPEN_PROJECT } from "../../shared/communication/communication";
+import SceneControl from "../scene_control/scene_control";
+import IUpdateable from "./iupdateable";
 
-class ProjectPicker {
-    private ipcRendererProcess: Electron.IpcRenderer;
-    private element: HTMLElement;
-    constructor(element: HTMLElement, ipcRendererProcess: Electron.IpcRenderer = window.ipcRenderer) {
-        this.ipcRendererProcess = ipcRendererProcess;
+abstract class UIElement implements IUpdateable {
+    protected element: HTMLElement;
+    protected sceneControl: SceneControl;
+    protected doc: HTMLDocument;
+
+    constructor(element: HTMLElement, sceneControl: SceneControl, doc: HTMLDocument = document) {
         this.element = element;
-        this.element.onclick = this.openProject.bind(this);
+        this.sceneControl = sceneControl;
+        this.doc = doc;
     }
 
-    private openProject(): void {
-        this.ipcRendererProcess.send(MESSAGE_OPEN_PROJECT);
+    public Update(): void {
+        return;
     }
 }
 
-export default ProjectPicker;
+export default UIElement;

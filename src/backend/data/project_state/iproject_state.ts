@@ -14,17 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { IpcRenderer } from "electron";
-export {};
+import Project from "../project";
+import Workspace from "../workspace";
 
-declare global {
-    // Redefining global Window to include IPC Renderer types
-    /* eslint-disable  @typescript-eslint/interface-name-prefix */
-    interface Window {
-        ipcRenderer: IpcRenderer;
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        IpcRenderer: any;
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        IpcRendererEvent: any;
-    }
+interface IProjectState {
+    SetProject(update: Project): void;
+    SetWorkspace(update: Workspace): void;
+    GetProject(): Project | undefined;
+    GetWorkspace(): Workspace | undefined;
 }
+
+export default IProjectState;

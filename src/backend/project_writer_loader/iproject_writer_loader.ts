@@ -14,17 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { IpcRenderer } from "electron";
-export {};
+import Project from "../data/project";
 
-declare global {
-    // Redefining global Window to include IPC Renderer types
-    /* eslint-disable  @typescript-eslint/interface-name-prefix */
-    interface Window {
-        ipcRenderer: IpcRenderer;
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        IpcRenderer: any;
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        IpcRendererEvent: any;
-    }
+/**
+ * IProjectWriterLoader represents an object that can load and write projects
+ * from disk.
+ */
+interface IProjectWriterLoader {
+    /**
+     * Load reads a project from disk and parses it.
+     * @param projectPath The filepath of the project to read
+     */
+    Load(projectPath: string): Promise<Project>;
+    
+    /**
+     * Write converts a provided project to JSON and writes it to disk.
+     * @param project The project to write
+     */
+    Write(project: Project): void;
 }
+
+export default IProjectWriterLoader;

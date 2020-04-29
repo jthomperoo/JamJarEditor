@@ -14,17 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { IpcRenderer } from "electron";
-export {};
-
-declare global {
-    // Redefining global Window to include IPC Renderer types
-    /* eslint-disable  @typescript-eslint/interface-name-prefix */
-    interface Window {
-        ipcRenderer: IpcRenderer;
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        IpcRenderer: any;
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        IpcRendererEvent: any;
-    }
+interface IUpdateable {
+    Update(): void;
 }
+
+export default IUpdateable;

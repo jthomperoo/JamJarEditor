@@ -14,17 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { IpcRenderer } from "electron";
-export {};
-
-declare global {
-    // Redefining global Window to include IPC Renderer types
-    /* eslint-disable  @typescript-eslint/interface-name-prefix */
-    interface Window {
-        ipcRenderer: IpcRenderer;
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        IpcRenderer: any;
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        IpcRendererEvent: any;
-    }
+/**
+ * ISceneTemplater represents an object that can template out a Scene file,
+ * generating a source string for it.
+ */
+interface ISceneTemplater {
+    /**
+     * Template takes in a scene filepath and generates source code for it
+     * through templating
+     * @param path The scene file to template to
+     */
+    Template(path: string): string;
 }
+
+export default ISceneTemplater;

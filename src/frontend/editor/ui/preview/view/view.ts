@@ -14,20 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { MESSAGE_OPEN_PROJECT } from "../../shared/communication/communication";
+import Component from "jamjar/lib/component/component";
 
-class ProjectPicker {
-    private ipcRendererProcess: Electron.IpcRenderer;
-    private element: HTMLElement;
-    constructor(element: HTMLElement, ipcRendererProcess: Electron.IpcRenderer = window.ipcRenderer) {
-        this.ipcRendererProcess = ipcRendererProcess;
-        this.element = element;
-        this.element.onclick = this.openProject.bind(this);
-    }
-
-    private openProject(): void {
-        this.ipcRendererProcess.send(MESSAGE_OPEN_PROJECT);
+class View extends Component {
+    public static readonly KEY = "view";
+    constructor() {
+        super(View.KEY);
     }
 }
 
-export default ProjectPicker;
+export default View;
